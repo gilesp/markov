@@ -6,7 +6,6 @@ import (
 
 type Splitter interface {
 	Split(text string) []string
-	IsTerminator(word string) bool
 }
 
 type NaiveSplitter struct{}
@@ -17,7 +16,7 @@ func (n *NaiveSplitter) Split(text string) []string {
 	current := []string{}
 	words := strings.Fields(text)
 	for _, word := range words {
-		if n.IsTerminator(word) {
+		if n.isTerminator(word) {
 			current = append(current, word)
 			sentences = append(sentences, strings.Join(current, " "))
 			current = []string{}
@@ -38,7 +37,7 @@ var abbrevs = []string{"Mr.",
 	"Dr.",
 	"Prof."}
 
-func (n *NaiveSplitter) IsTerminator(word string) bool {
+func (n *NaiveSplitter) isTerminator(word string) bool {
 
 	for _, abbrev := range abbrevs {
 		if word == abbrev {

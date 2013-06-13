@@ -18,6 +18,8 @@ func (k key) shift(word string) {
 	k[len(k)-1] = word
 }
 
+const terminator = "TERMINATORTERMINATOR"
+
 //Chain definitions
 type Chain struct {
 	grams    map[string][]string
@@ -42,6 +44,7 @@ func (c *Chain) Populate(text string) {
 	}
 	for _, sentence := range sentences {
 		words := c.splitString(sentence)
+		words = append(words, terminator)
 		key := make(key, c.order)
 		for _, word := range words {
 			c.grams[key.String()] = append(c.grams[key.String()], word)
@@ -70,13 +73,15 @@ func (c *Chain) Generate(maxLength int) string {
 			choices = c.grams[key.String()]
 		}
 		next := choices[r.Intn(len(choices))]
-		sentence = append(sentence, next)
+
 		//if next is a terminator word
 		//append sentence to words.
 		//this is to aovid half-finished sentences appearing in the output.
-		if c.splitter.IsTerminator(next) {
+		if next == terminator {
 			words = append(words, strings.Join(sentence, " "))
 			sentence = []string{}
+		} else {
+			sentence = append(sentence, next)
 		}
 		key.shift(next)
 	}
