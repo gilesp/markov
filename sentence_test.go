@@ -29,7 +29,7 @@ func verifyBool(t *testing.T, testnum int, testcase, input string, output, expec
 	}
 }
 
-func TestSplit(t *testing.T) {
+func TestNaiveSplit(t *testing.T) {
 	s := NewNaiveSplitter()
 	for i, st := range sentenceTests {
 		output := s.Split(st.in)
