@@ -56,10 +56,7 @@ func TestPopulateTableOrder1(t *testing.T) {
 	verifyMap(t, 1, "TestPopulateTableOrder1", c.grams, "", "[one]")
 	verifyMap(t, 2, "TestPopulateTableOrder1", c.grams, "one", "[two]")
 	verifyMap(t, 3, "TestPopulateTableOrder1", c.grams, "two", "[two three]")
-	_, ok := c.grams["three"]
-	if ok {
-		t.Errorf("There should not be a value for the key \"three\"")
-	}
+	verifyMap(t, 4, "TestPopulateTableOrder1", c.grams, "three", "[TERMINATORTERMINATOR]")
 }
 
 func TestPopulateTableOrder2(t *testing.T) {
@@ -69,14 +66,7 @@ func TestPopulateTableOrder2(t *testing.T) {
 	verifyMap(t, 2, "TestPopulateTableOrder1", c.grams, " one", "[two]")
 	verifyMap(t, 3, "TestPopulateTableOrder1", c.grams, "one two", "[two]")
 	verifyMap(t, 4, "TestPopulateTableOrder1", c.grams, "two two", "[three]")
-	_, ok := c.grams["two three"]
-	if ok {
-		t.Errorf("There should not be a value for the key \"two three\"")
-	}
-	_, ok = c.grams["three"]
-	if ok {
-		t.Errorf("There should not be a value for the key \"three\"")
-	}
+	verifyMap(t, 5, "TestPopulateTableOrder1", c.grams, "two three", "[TERMINATORTERMINATOR]")
 }
 
 func TestPopulateTableOrder3(t *testing.T) {
@@ -86,6 +76,7 @@ func TestPopulateTableOrder3(t *testing.T) {
 	verifyMap(t, 2, "TestPopulateTableOrder1", c.grams, "  one", "[two]")
 	verifyMap(t, 3, "TestPopulateTableOrder1", c.grams, " one two", "[two]")
 	verifyMap(t, 4, "TestPopulateTableOrder1", c.grams, "one two two", "[three]")
+	verifyMap(t, 5, "TestPopulateTableOrder1", c.grams, "two two three", "[TERMINATORTERMINATOR]")
 }
 
 func TestPopulateTableOrder1MultipleChildren(t *testing.T) {
@@ -95,6 +86,7 @@ func TestPopulateTableOrder1MultipleChildren(t *testing.T) {
 	verifyMap(t, 2, "TestPopulateTableOrder1", c.grams, "One", "[two. two. two]")
 	verifyMap(t, 3, "TestPopulateTableOrder1", c.grams, "two.", "[One One]")
 	verifyMap(t, 4, "TestPopulateTableOrder1", c.grams, "two", "[three.]")
+	verifyMap(t, 5, "TestPopulateTableOrder1", c.grams, "three.", "[TERMINATORTERMINATOR]")
 }
 
 /*

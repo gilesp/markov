@@ -55,10 +55,3 @@ var terminatorTests = []struct {
 	{"Dr.", false},
 	{"Prof.", false},
 }
-
-func TestIsTerminator(t *testing.T) {
-	s := NewNaiveSplitter()
-	for i, tt := range terminatorTests {
-		verifyBool(t, i, "TestIsTerminator", tt.in, s.IsTerminator(tt.in), tt.expected)
-	}
-}
