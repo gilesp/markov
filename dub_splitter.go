@@ -12,6 +12,10 @@ import (
  *
  * This splitter works at the word level, to produce a more cut up series
  * of outputs than a sentence-oriented splitter.
+ *
+ * Ideas to try:
+ *   Split text into sentences first?
+ *   Split into natural phrases (separated by commas and other punctuation?)
  */
 type DubSplitter struct {
 	phraseLength int
