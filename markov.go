@@ -53,8 +53,7 @@ func (c *Chain) Populate(text string) {
 	}
 }
 
-func (c *Chain) Generate(maxLength int) string {
-	key := make(key, c.order)
+func (c *Chain) generateWithKey(key key, maxLength int) string {
 
 	words := []string{}
 
@@ -87,6 +86,26 @@ func (c *Chain) Generate(maxLength int) string {
 	}
 
 	return strings.Join(words, " ")
+}
+
+func (c *Chain) GenerateResponse(stub string, maxLength int) (response string, err string) {
+	words := strings.Fields(stub)
+	if len(words) < c.order {
+		err = "Stub too short."
+		return
+	}
+	key := make(key, c.order)
+	for i := (len(words) - c.order); i < len(words); i++ {
+		key.shift(words[i])
+	}
+	response = c.generateWithKey(key, maxLength)
+	return
+}
+
+func (c *Chain) Generate(maxLength int) string {
+	key := make(key, c.order)
+
+	return c.generateWithKey(key, maxLength)
 }
 
 // Public utility method to create a new Chain instance
