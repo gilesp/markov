@@ -178,8 +178,12 @@ func (i *IllinoisSplitter) appendString(sentence, word string) string {
 }
 
 func (i *IllinoisSplitter) startsWithCapital(word string) bool {
-	matched, _ := regexp.MatchString("[A-Z]", word[:1])
-	return matched
+	if len(word) > 0 {
+		matched, _ := regexp.MatchString("[A-Z]", word[:1])
+		return matched
+	} else {
+		return false
+	}
 }
 
 func (i *IllinoisSplitter) boundary(candidate, prev2Word, prevWord, prefix, suffix, nextWord, next2Word string) bool {
